@@ -160,7 +160,7 @@ def comment__check(iid):
             tu = {
                 "info_ID": i.info_ID,
                 "comt_ID": i.comment_ID,
-                "user_ID": i.user_ID,
+                "user_ID": i.user_name,
                 "comt_text": i.comment_text,
                 "comt_time": i.comment_time
             }
