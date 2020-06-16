@@ -119,6 +119,7 @@ def adminLog():
         admin = Admin.query.filter_by(name=form.name.data, pwd=form.password.data).all()
         if admin:
             session['identity']= admin[0].system
+            session['province']= admin[0].province
             if 'name' in session:
                 session.pop('name')
             session['name']=admin[0].name
