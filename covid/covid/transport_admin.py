@@ -1,11 +1,11 @@
 from flask import render_template, request, flash, make_response, url_for, redirect,Blueprint,session
-from covid import db
-from covid.transportation_models import  Transport
+from app import db
+from app.transportation_models import  Transport
 from io import BytesIO
 import xlsxwriter
 from flask_mail import Mail, Message
 from sqlalchemy import text
-from covid import mail
+from app import mail
 
 def create_flie(users):
     output=BytesIO()
