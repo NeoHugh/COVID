@@ -34,7 +34,7 @@ def a():
             flash('登录成功!','success')
             # db.session['email'] = form.email.data
         else:
-            flash('登录失败！请重新输入账号密码')
+            flash('登录失败！请重新输入账号密码','')
     return render_template('a.html', title='Login', form=form)
 
 @login.route("/homeAdmin")
