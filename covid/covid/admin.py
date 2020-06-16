@@ -151,7 +151,7 @@ def download(goodsid):
     ddl = GoodsInfo.query.filter(GoodsInfo.id==goodsid).first()
     if curdate < str(ddl.DDL):
         flash("抽签时候未到！",'warning')
-        return redirect(url_for('admin.view_win'))
+        return redirect(url_for('goods_admin.view_win'))
 
 # 开始进行抽签工作
     # 计算申领人数
@@ -166,7 +166,7 @@ def download(goodsid):
     )
     if count == 0: # 目前无人申领
         flash("目前还没有人申领！",'warning')
-        return redirect(url_for('admin.view_win'))
+        return redirect(url_for('goods_admin.view_win'))
     elif count <= good.OrderLimit: # 如果人数小于限制人数 则全部抽取
         OrderInfo.query.filter(OrderInfo.GoodsID==goodsid, OrderInfo.OrderState==0).update({"OrderState": 1})
         db.session.commit()
