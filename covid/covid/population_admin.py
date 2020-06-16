@@ -51,7 +51,7 @@ def information_check(itype):
     if (itype < 0 or itype >= 4):
         return "输入参数有误：没有传入有效信息类型"
 
-    result = Information.query.filter(Information.info_type == itype).all()
+    result = Information.query.filter(Information.info_type == itype,Information.info_province==session.get('province') ).all()
     if result:
         Data = []
         for i in result:
@@ -135,7 +135,7 @@ def addPopInfo():
 def comt_information_check(itype):
     if (itype < 0 or itype >= 4):
         flash("输入参数有误：没有传入有效信息类型")
-    result = Information.query.filter(Information.info_type == itype).all()
+    result = Information.query.filter(Information.info_type == itype,Information.info_province==session.get('province') ).all()
     if result:
         Data = []
         for i in result:
