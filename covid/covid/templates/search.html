@@ -7,16 +7,16 @@
             </h3>
             <ul class="nav flex-colomn nav-fill nav-pills justify-content-center">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('user.index') }}">首页</a>
+                    <a class="nav-link" href="{{ url_for('transport_user.index') }}">首页</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('user.msg_input') }}">个人信息填写</a>
+                    <a class="nav-link" href="{{ url_for('transport_user.msg_input') }}">个人信息填写</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="{{ url_for('user.turnsearch') }}">模糊搜索</a>
+                    <a class="nav-link active" href="{{ url_for('transport_user.turnsearch') }}">模糊搜索</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('user.turnresult') }}">搜索结果</a>
+                    <a class="nav-link" href="{{ url_for('transport_user.turnresult') }}">搜索结果</a>
                 </li>
             </ul>
         </div>
@@ -41,7 +41,7 @@
                 <div class="clearfix"></div>
                 <div class="col-6 offset-md-2">
                     <div class="container">
-                        <form action="{{ url_for('user.search') }}" method="post">
+                        <form action="{{ url_for('transport_user.search') }}" method="post">
                             <div class="form-group">
                                 <label for="inputState">请选择出行方式</label>
                                 <select id="inputState" class="form-control" name="type">
