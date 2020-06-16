@@ -3,7 +3,7 @@ from flask import request,redirect
 from covid import db
 from covid.models import Users, Admin,Information,Comment,Popflow
 listInfoType = [
-    'IndustryRestart','Quarantine','Transportation','MedicalService'
+    '复工复产','社区举措','交通出行','医疗举措'
 ]
 
 listInfoProvince = [
