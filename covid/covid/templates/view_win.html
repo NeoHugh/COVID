@@ -1,0 +1,48 @@
+{% extends "framework.html" %}
+{% block content %}
+<!-- This part is the body of the website. Just simply replace the follwoing comments with your own codes. Attentnion: no <body> </body> part is needed-->
+
+<div class="offset-1">
+<ul class="nav nav-pills">
+  <li class="nav-item">
+    <a class="nav-link" href="{{url_for('goods_admin.admin_open')}}">发布申领入口</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="#">查看中签信息</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{url_for('goods_admin.complain_deal')}}">投诉处理</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{url_for('goods_admin.putin')}}">物资入库</a>
+  </li>
+    <li class="nav-item">
+    <a class="nav-link" href="{{url_for('goods_admin.sent_deal')}}">订单管理</a>
+    </li>
+</ul>
+</div>
+
+<hr />
+
+<div class="col-10 offset-1" >
+<div class="list-group">
+{% if goods%}
+    {% for u in goods %}
+  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+			<h5 class="mb-1">{{u.Goodsname}}</h5>
+    </div>
+	<div><h6 class="mb-1">物资编号：{{u.id}}</h6></div>
+  <div><h6 class="mb-1">数量：{{u.OrderLimit}}</h6></div>
+	<div><h6 class="mb-1">截止时间：{{u.DDL}}</h6></div>
+      <hr />
+     <div class="offset-9"><button type="button" class="btn btn-danger "onclick="location='{{url_for('goods_admin.deleteGoodsInfo', goodsname=u.Goodsname)}}'">撤销</button>
+      <button type="submit" class="btn btn-primary " onclick="location='{{url_for('goods_admin.download', goodsid=u.id)}}'">查看中签信息</button></div>
+        
+  </a>
+    {% endfor %}
+{% endif %}
+</div>
+    </div>
+
+{% endblock content %}

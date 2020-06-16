@@ -1,0 +1,103 @@
+{% extends "framework.html" %}
+{% block content %}
+
+
+<!-- This part is the body of the website. Just simply replace the follwoing comments with your own codes. Attentnion: no <body> </body> part is needed-->
+<div class="offset-1">
+<ul class="nav nav-pills">
+  <li class="nav-item">
+    <a class="nav-link active" href="#">申领进行中</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{url_for('goods_user.required')}}">已申领</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{url_for('goods_user.win')}}">中签</a>
+  </li>
+    <li class="nav-item">
+    <a class="nav-link" href="{{url_for('goods_user.wait_receive')}}">待收货</a>
+  </li>
+    <li class="nav-item">
+    <a class="nav-link" href="{{url_for('goods_user.received')}}">已收货</a>
+  </li>
+</ul>
+</div>
+
+<hr />
+<div class="col-3 offset-9">
+    <p class="font-weight-bold">物资数量：{{ amount }}</p>
+</div>
+<div class="col-10 offset-1" >
+<div class="list-group">
+  {% if amount>0 %}
+  {% for good in goods %}
+  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">物资名称 {{ good.Goodsname }}</h5>
+    </div>
+    <div><small>每人领取数量：{{ good.OrderLimitPerPerson }}只</small></div>
+    <div><small>申领截至时间：{{ good.DDL }}</small></div>
+    <div> <small>物资总数：{{ good.OrderLimit }}:</small></div>
+      <hr />
+      <div class="offset-11"><button type="button" class="btn btn-success " data-toggle="modal" data-target="#{{good.id}}">申领</button></div>
+  </a>
+
+
+  <form method="post">
+    <div class="modal fade" id="{{good.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">申领入口</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+    
+        <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon2" >身份证号：</span>
+      </div>
+        <input type="number" class="form-control" placeholder="id" aria-label="id" aria-describedby="basic-addon2" id="id" name="id" required>
+    </div>
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon3">姓名：</span>
+      </div>
+        <input type="text" class="form-control" placeholder="name" aria-label="name" aria-describedby="basic-addon3" id="name" name="name" required>
+    </div>
+    
+        <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon4" required>地址：</span>
+      </div>
+        <input type="text" class="form-control" placeholder="address" aria-label="address" aria-describedby="basic-addon4" id="address" name="address" required>
+    </div>
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon5" required>申领数目：</span>
+      </div>
+        <input type="number" class="form-control" placeholder="sum" aria-label="sum" aria-describedby="basic-addon5" id="sum" name="sum" required>
+    </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary"  >申领</button>
+            <input type="hidden" id="goods_id" value="{{good.id}}" name="goods_id">
+          </div>
+        </div>
+      </div>
+    </div>   
+    </form>
+
+
+  {% endfor %}
+  {% else %}
+  <h5 class="mb-1">当前没有发布任何申领信息</h5>
+  {% endif %}
+</div>
+    </div>
+{% endblock content %}

@@ -11,7 +11,7 @@ app = Flask(__name__)
 bootstrap = Bootstrap(app)
 app.config["SECRET_KEY"] = "123456"
 
-app.config["SQLALCHEMY_DATABASE_URI"] = 'mssql+pyodbc://abc:123456@flask'
+app.config["SQLALCHEMY_DATABASE_URI"] = 'mysql+pymysql://root:948959254@localhost:3306/user?charset=utf8' 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 
@@ -40,7 +40,7 @@ def a():
     form = LoginForm()
     if form.validate_on_submit():
         # if form.email.data == Users.name and form.password.data == Users.pwd:
-        user = Users.query.filter_by(email=form.email.data, pwd=form.password.data).all()
+        user = Users.query.filter(Users.email==form.email.data, Users.pwd==form.password.data).all()
         if user:
             flash('登录成功!')
             # db.session['email'] = form.email.data
@@ -54,9 +54,9 @@ def a():
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        email = Users.query.filter_by(email=form.email.data).all()
-        username = Users.query.filter_by(username=form.username.data).all()
-        idc = Users.query.filter_by(idcard=form.idcard.data).all()
+        email = Users.query.filter_by(email==form.email.data).all()
+        username = Users.query.filter_by(username==form.username.data).all()
+        idc = Users.query.filter_by(idcard==form.idcard.data).all()
         if email:
             flash('该邮箱已被注册过！')
             # return redirect(url_for('register'))
@@ -83,9 +83,9 @@ def forget():
     form = pswForm()
     # if form.idcard.data
     if form.validate_on_submit():
-        user = Users.query.filter_by(email=form.email.data, idc=form.idcard.data).all()
+        user = Users.query.filter_by(email==form.email.data, idc==form.idcard.data).all()
         if user:
-            Users.query.filter_by(idc=form.idcard.data).update(pwd=form.password.data)
+            Users.query.filter_by(idc=form.idcard.data).update(pwd==form.password.data)
             flash(f'密码更新成功!', 'success')
             return redirect(url_for('a'))
        # else:
@@ -97,7 +97,7 @@ def forget():
 def adminLog():
     form = AdminLoginForm()
     if form.validate_on_submit():
-        admin = Admin.query.filter_by(name=form.name.data, pwd=form.password.data).all()
+        admin = Admin.query.filter_by(name==form.name.data, pwd==form.password.data).all()
         if admin:
             flash('登录成功!')
             return redirect(url_for('homeAdmin'))

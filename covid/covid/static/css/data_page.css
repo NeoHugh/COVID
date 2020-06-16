@@ -1,0 +1,122 @@
+.jumbotron {
+    /* padding: 1rem 1rem 1rem 1rem; */
+    margin-bottom:auto;
+    background-color: transparent !important;
+    /*#FFF5EE;*/
+    border-radius: 0.3rem;
+}
+
+.jumbotron-carousel {
+    /* padding: 1rem 1rem 1rem 1rem; */
+    margin-bottom: 2rem;
+    /* background-color: #ffffff; */
+    /*#FFF5EE;*/
+    border-radius: 0.3rem;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.bodycss {
+    background-color: transparent !important;
+    background-image: url("../img/black_back.jpg");
+    background-position: center 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    -moz-background-size: cover;
+    -ms-background-size: cover;
+}
+
+.bg-toggler {
+    background-color: #99CCCC;
+}
+
+@media (max-width: 992px)
+{
+	.DispalyLabel {
+		font-size: 2.5vw;
+		color: darkred;
+		font-family: '华文细黑';
+	}
+	.DisplayNum {
+		font-size: 4vw;
+		font-weight: bold;
+		margin: 0 auto;
+	} 
+}
+
+@media (min-width: 992px)
+{
+	.DispalyLabel {
+		font-size: 1.5vw;
+		color: darkred;
+		font-family: '华文细黑';
+	}
+	.DisplayNum {
+		font-size: 2.5vw;
+		font-weight: bold;
+		margin: 0 auto;
+	} 
+}
+
+.DisplayBox {
+    border-bottom: blueviolet;
+    border-right: blueviolet;
+    border-left: blueviolet;
+    border-top: blueviolet;
+    border-radius: 2rem;
+    padding: 1rem;
+}
+
+.jumbotronImg {
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+    height: auto;
+    position: fixed;
+}
+
+.region_div{
+    color: #AA4411;
+    border: bisque;
+    border-radius: 2rem;
+    text-align: center;
+
+}
+
+.list-group {
+	flex-direction: row;
+}
+
+.list-group-horizontal .list-group-item {
+	width: 20%;
+	display: inline-block;
+}
+.list-group-horizontal .list-group-item {
+    margin-bottom: 0;
+    margin-left:-4px;
+    margin-right: 0;
+	padding-left: 0;
+	padding-right: 0;
+}
+.list-group-horizontal .list-group-item:first-child {
+    border-top-left-radius:12px;
+    border-bottom-left-radius:12px;
+}
+.list-group-horizontal .list-group-item:last-child {
+    border-top-right-radius:12px;
+    border-bottom-right-radius:12px;
+}
+
+.pagetitle {
+	font-size: 2em;
+	margin-bottom: 15px;
+}
+
+.shadow-sm{
+    box-shadow: 0 0.25rem 0.25rem rgba(0,0,0,0.075) !important;
+  }

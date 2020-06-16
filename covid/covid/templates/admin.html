@@ -1,0 +1,112 @@
+{% extends "framework.html" %}
+{% block content %}
+<!-- This part is the body of the website. Just simply replace the follwoing comments with your own codes. Attentnion: no <body> </body> part is needed-->
+<div class="offset-1">
+<ul class="nav nav-pills">
+  <li class="nav-item">
+    <a class="nav-link active" href="#">发布申领入口</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{url_for('goods_admin.view_win')}}">查看中签信息</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{url_for('goods_admin.complain_deal')}}">投诉处理</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{url_for('goods_admin.putin')}}">物资入库</a>
+  </li>
+    <li class="nav-item">
+    <a class="nav-link" href="{{url_for('goods_admin.sent_deal')}}">发货处理</a>
+    </li>
+</ul>
+</div>
+
+<hr />
+<div class="col-3 offset-9">
+    <p class="font-weight-bold">库存物资：</p>
+</div>
+<div class="col-10 offset-1" >
+<div class="list-group">
+  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">物资名称1</h5>
+    </div>
+    <div><h6 class="mb-1">可发布库存数量：</h6></div>
+      <hr />
+      <div class="offset-9">
+        <button type="button" class="btn btn-danger ">删除</button>
+        <button type="button" class="btn btn-primary ">修改</button>
+        <button type="button" class="btn btn-success " data-toggle="modal" data-target="#open1">发布入口</button>
+      </div>
+  </a>
+  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">物资名称2</h5>
+    </div>
+    <div><h6 class="mb-1">可发布库存数量：</h6></div>
+      <hr />
+      <div class="offset-9">
+        <button type="button" class="btn btn-danger ">删除</button>
+        <button type="button" class="btn btn-primary ">修改</button>
+        <button type="button" class="btn btn-success " data-toggle="modal" data-target="#open1">发布入口</button>
+      </div>
+  </a>
+  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">物资名称3</h5>
+    </div>
+    <div><h6 class="mb-1">可发布库存数量：</h6></div>
+      <hr />
+      <div class="offset-9">
+        <button type="button" class="btn btn-danger ">删除</button>
+        <button type="button" class="btn btn-primary ">修改</button>
+        <button type="button" class="btn btn-success " data-toggle="modal" data-target="#open1">发布入口</button>
+      </div>
+  </a>
+</div>
+    </div>
+<div class="modal fade" id="open1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">发布入口</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1">物资名称</span>
+  </div>
+  <input type="text" class="form-control" placeholder="name" aria-label="name" aria-describedby="basic-addon1">
+</div>
+
+        <div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon2">发布总数</span>
+  </div>
+    <input type="text" class="form-control" placeholder="sum" aria-label="sum" aria-describedby="basic-addon2">
+</div>
+
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon3">每人限领数量</span>
+  </div>
+    <input type="text" class="form-control" placeholder="number" aria-label="number" aria-describedby="basic-addon3">
+</div>
+
+    <div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon4">申领截至时间</span>
+  </div>
+    <input type="text" class="form-control" placeholder="deadline" aria-label="deadline" aria-describedby="basic-addon4">
+</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">发布</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

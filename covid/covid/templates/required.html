@@ -1,0 +1,61 @@
+{% extends "framework.html" %}
+{% block content %}
+{% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flash">
+                {% for message in messages %}
+                    <div class="alert alert-success" style="text-align: center">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                        <strong>{{ message }}</strong></div>
+                {% endfor %}
+            </ul>
+        {% endif %}
+{% endwith %}
+<!-- This part is the body of the website. Just simply replace the follwoing comments with your own codes. Attentnion: no <body> </body> part is needed-->
+<div class="offset-1">
+<ul class="nav nav-pills">
+  <li class="nav-item">
+    <a class="nav-link" href="{{url_for('goods_user.can_require')}}">申领进行中</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="#">已申领</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{url_for('goods_user.win')}}">中签</a>
+  </li>
+    <li class="nav-item">
+    <a class="nav-link" href="{{url_for('goods_user.wait_receive')}}">待收货</a>
+  </li>
+    <li class="nav-item">
+    <a class="nav-link" href="{{url_for('goods_user.received')}}">已收货</a>
+  </li>
+</ul>
+</div>
+
+<hr />
+<div class="col-3 offset-9">
+    <p class="font-weight-bold">物资数量：{{amount}}</p>
+</div>
+<div class="col-10 offset-1" >
+<div class="list-group">
+  {% if amount %}
+  {% for order in orders %}
+  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">物资名称 {{ order.Goodsname }}</h5>
+    </div>
+    <div><small>申领数量：{{ order.OrderNum }}只</small></div>
+    <div><small>申领时间：{{ order.CreateTime }}</small></div>
+    <div> <small>当前状态：{% if order.OrderState==0 %} 等待抽签 {% elif order.OrderState==1 %} 未发货 {% elif order.OrderState==2 %} 已发货 {% elif order.OrderState==3 %} 已送达 {% else %} 已取消 {% endif %}</small></div>
+      <hr />
+    {% if order.OrderState==0 %}
+    <div class="offset-11"><button type="button" class="btn btn-danger " onclick="location='{{url_for('goods_user.delete', orderid=order.id)}}'">取消申领</button></div>
+    {% endif %}
+  </a>
+  {% endfor %}
+  {% else %}
+  <h5 class="mb-1">您还未申领任何物资</h5>
+  {% endif %}
+</div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,61 @@
+{% extends "framework.html" %}
+{% block content %}
+<!-- This part is the body of the website. Just simply replace the follwoing comments with your own codes. Attentnion: no <body> </body> part is needed-->
+<div class="offset-1">
+<ul class="nav nav-pills">
+  <li class="nav-item">
+    <a class="nav-link" href="{{url_for('goods_admin.admin_open')}}">发布申领入口</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{url_for('goods_admin.view_win')}}">查看中签信息</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{url_for('goods_admin.complain_deal')}}">投诉处理</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{url_for('goods_admin.putin')}}">物资入库</a>
+  </li>
+    <li class="nav-item">
+    <a class="nav-link active" href="#">订单管理</a>
+    </li>
+</ul>
+</div>
+
+<hr />
+<div class="offset-1">
+<ul class="nav nav-pills">
+  <li class="nav-item">
+    <a class="nav-link" href="{{url_for('goods_admin.sent_deal')}}"><small>未发货</small></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="#"><small>运送中</small></a>
+  </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{url_for('goods_admin.completed')}}"><small>已完成</small></a>
+    </li>
+</ul>
+</div>
+
+  {% if orders%}
+    {% for u in orders %}
+<hr />
+
+<div class="col-10 offset-1" >
+<div class="list-group">
+  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">物资名称: {{u.Goodsname}}</h5>
+    </div>
+    <div><h6 class="mb-1">订单编号：{{u.id}}</h6></div>
+    <div><h6 class="mb-1">申领用户：{{u.userid}}</h6></div>
+    <div><h6 class="mb-1">发货时间：{{u.DeliveryTime}}</h6></div>
+      <hr />
+      <div class="offset-10">
+      </div>
+  </a>
+  
+</div>
+    </div>
+    {% endfor %}
+{% endif %}
+{% endblock content %}

@@ -1,0 +1,54 @@
+{% extends "framework.html" %}
+{% block content %}
+
+
+
+<!-- This part is the body of the website. Just simply replace the follwoing comments with your own codes. Attentnion: no <body> </body> part is needed-->
+<div class="offset-1">
+<ul class="nav nav-pills">
+  <li class="nav-item">
+    <a class="nav-link" href="{{url_for('goods_admin.admin_open')}}">发布申领入口</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{url_for('goods_admin.view_win')}}">查看中签信息</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{url_for('goods_admin.complain_deal')}}">投诉处理</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="#">物资入库</a>
+  </li>
+    <li class="nav-item">
+    <a class="nav-link" href="{{url_for('goods_admin.sent_deal')}}">订单管理</a>
+    </li>
+</ul>
+</div>
+
+<hr />
+<form method="post">
+<div class="col-10 offset-1 container  shadow-sm bg-warm"  >
+
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1">物资名称</span>
+  </div>
+  <input type="text" class="form-control" placeholder="name" aria-label="name" aria-describedby="basic-addon2" id="goodsname" name="goodsname" required>
+</div>
+
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon2">入库数量</span>
+  </div>
+    <input type="number" class="form-control" placeholder="number" aria-label="number" aria-describedby="basic-addon3" name="number" required>
+</div>
+
+    <div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon3">物资用途</span>
+  </div>
+    <input type="text" class="form-control" placeholder="请输入物资用途" aria-label="use" aria-describedby="basic-addon4" name="usage" required>
+</div>
+</form>
+    <div class="offset-11"><button type="submit" class="btn btn-primary ">入库</button></div>
+    </div>
+{% endblock content %}

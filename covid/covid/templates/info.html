@@ -1,0 +1,28 @@
+{% extends"framework.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+    <style>
+        p.help-block {
+            color: indianred;
+            font-size: 12px;
+        }
+
+        .btn {
+            margin-left: 32%;
+            color: #fff;
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+    </style>
+    <div class="col-4 offset-md-3">
+
+        <h1>个人信息</h1>
+
+
+        <hr/>
+        {{ wtf.quick_form(form) }}
+    </div>
+
+    <br>
+
+{% endblock content %}

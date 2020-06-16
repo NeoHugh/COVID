@@ -1,0 +1,84 @@
+{% extends "framework.html" %}
+{% block content %}
+{% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flash">
+                {% for message in messages %}
+                    <div class="alert alert-success" style="text-align: center">
+                        <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                        <strong>{{ message }}</strong></div>
+                {% endfor %}
+            </ul>
+        {% endif %}
+{% endwith %}
+<!-- This part is the body of the website. Just simply replace the follwoing comments with your own codes. Attentnion: no <body> </body> part is needed-->
+<div class="offset-1">
+<ul class="nav nav-pills">
+  <li class="nav-item">
+    <a class="nav-link" href="{{url_for('goods_user.supply')}}">申领进行中</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{url_for('goods_user.required')}}">已申领</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="{{url_for('goods_user.win')}}">中签</a>
+  </li>
+    <li class="nav-item">
+    <a class="nav-link active" href="#">待收货</a>
+  </li>
+    <li class="nav-item">
+    <a class="nav-link" href="{{url_for('goods_user.received')}}">已收货</a>
+  </li>
+</ul>
+</div>
+
+<hr />
+<div class="col-3 offset-9">
+    <p class="font-weight-bold">物资数量：{{amount}}</p>
+</div>
+<div class="col-10 offset-1" >
+<div class="list-group">
+
+  {% if amount>0 %}
+  {% for order in orders %}
+  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">物资名称 {{ order.Goodsname }}</h5>
+    </div>
+    <div><small>申领数量：{{ order.OrderNum }}只</small></div>
+    <div><small>申领时间：{{ order.CreateTime }}</small></div>
+      <hr />
+      <div class="offset-11">
+        <button type="button" class="btn btn-success " data-toggle="modal" data-target="#{{order.GoodsID +order.id}}">确认收货</button>
+      </div>
+      
+  </a>
+
+  <form method="post">
+    <div class="modal fade" id="{{order.GoodsID +order.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">确认已经收到货物？</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary"  >确认</button>
+            <input type="hidden" id="-id" value="{{ order.id }}" name="-id">
+            <input type="hidden" id="id" value="" name="id">
+          </div>
+        </div>
+      </div>
+    </div>   
+    </form>
+
+
+  {% endfor %}
+  {% else %}
+  <h5 class="mb-1">当前没有待收货的订单</h5>
+  {% endif %}
+</div>
+    </div>
+{% endblock content %}

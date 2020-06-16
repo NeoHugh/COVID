@@ -1,0 +1,24 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+{% extends "framework.html" %}
+{% block content %}
+
+<div class="col-4 offset-md-3">
+<h1>Home Admin</h1>
+
+
+   <br/>
+<div>
+ <h5>Admin List</h5>
+
+<hr/>
+{% for post in admin %}
+    <p style="color: cornflowerblue;font-size: 20px">{{ post.name }}——system{{ post.system }}——{{ post.province }}</p>
+    {% endfor %}
+<hr/>
+<small class="text-muted">新增管理员 ：
+    <a href="{{ url_for('login.addAdmin')}}"> Add Admin</a>
+</small>
+</div>
+</div>
+{% endblock content %}
