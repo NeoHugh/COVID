@@ -13,25 +13,25 @@
     background-color: #f5f5f5;
     border-right: 1px solid #eee;">
 <div class="list-group" style = "text-align: center">
-  <a href="{{ url_for('population_admin.index') }}" class="list-group-item">Home</a>
-  <a href="{{ url_for('population_admin.population') }}" class="list-group-item">Population</a>
-  <a href="{{ url_for('population_admin.information') }}" class="list-group-item active">Information</a>
-  <a href="{{ url_for('population_admin.comments') }}" class="list-group-item">Comments</a>
+  <a href="{{ url_for('population_admin.index') }}" class="list-group-item">主页</a>
+  <a href="{{ url_for('population_admin.population') }}" class="list-group-item">流动更新</a>
+  <a href="{{ url_for('population_admin.information') }}" class="list-group-item active">资讯更新</a>
+  <a href="{{ url_for('population_admin.comments') }}" class="list-group-item">评论监控</a>
 </div>
 </div>
 
 <div class="col-sm-6  col-md-8 main">
   <ul class="nav nav-tabs">
   <li class="nav-item">
-    <a class="nav-link active" href="{{ url_for('population_admin.information') }}">Information Update</a>
+    <a class="nav-link active" href="{{ url_for('population_admin.information') }}">资讯更新</a>
   </li>
   <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="True">Check&delete</a>
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="True">删除资讯</a>
     <div class="dropdown-menu">
-      <a class="dropdown-item" href="{{url_for('population_admin.information_check', itype=0)}}">IndustryRestart</a>
-      <a class="dropdown-item" href="{{url_for('population_admin.information_check', itype=1)}}">Quarantine</a>
-      <a class="dropdown-item" href="{{url_for('population_admin.information_check', itype=2)}}">Transportation</a>
-      <a class="dropdown-item" href="{{url_for('population_admin.information_check', itype=3)}}">MedicalService</a>
+      <a class="dropdown-item" href="{{url_for('population_admin.information_check', itype=0)}}">复工复产</a>
+      <a class="dropdown-item" href="{{url_for('population_admin.information_check', itype=1)}}">社区管控</a>
+      <a class="dropdown-item" href="{{url_for('population_admin.information_check', itype=2)}}">交通出行</a>
+      <a class="dropdown-item" href="{{url_for('population_admin.information_check', itype=3)}}">医疗举措</a>
     </div>
   </li>
 
@@ -39,7 +39,7 @@
   <br>
   <form action="{{ url_for('population_admin.addInfo') }}" method="POST">
     <div class="form-group">
-        <label for="info_type">Type</label>
+        <label for="info_type">类型</label>
           <select id="info_type" name="info_type" class="form-control">
             <option selected>Choose...</option>
             {% for option in type %}
@@ -48,20 +48,20 @@
           </select>
       </div>
     <div class="form-group">
-      <label for="info_title">The title</label>
+      <label for="info_title">标题</label>
       <textarea class="form-control" id="info_title" name="info_title" rows="1" aria-describedby="titleHelpBlock"></textarea>
         <small id="titleHelpBlock" class="form-text text-muted">
-          The title must be less than 30 words.
+          标题必须少于30字
         </small>
     </div>
     <div class="form-group">
-      <label for="info_text">The information</label>
+      <label for="info_text">资讯正文</label>
       <textarea class="form-control" id="info_text" name="info_text" rows="6" aria-describedby="textHelpBlock"></textarea>
         <small id="textHelpBlock" class="form-text text-muted">
-          The information must be less than 500 words.
+          正文必须少于500字
         </small>
     </div>
-    <button type="submit" class="btn btn-outline-info" style="display:block;margin:0 auto">Update</button>
+    <button type="submit" class="btn btn-outline-info" style="display:block;margin:0 auto">提交</button>
   </form>
 
 <div class="col-sm-3 col-md-2">
