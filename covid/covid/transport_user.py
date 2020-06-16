@@ -22,12 +22,14 @@ def index():
     transport1=Transport.query.filter_by(type=1)
     if(session.get('name') is None and 'transport_number' in session):
         session.pop('transport_number')
-
     return render_template('transportation.html', transport0=transport0, name=name,transport1=transport1)
 
 
 @transport_user.route('/search', methods=['GET', 'POST'])
 def turnsearch():
+    if 'identity' not in session:
+        flash('请先登录！','warning')
+        return redirect(url_for('.index'))
     if 'identity' in session and session['identity']=='Unknown':
         flash('请先登录！','warning')
         return redirect(url_for('.index'))
@@ -41,6 +43,9 @@ def turnsearch():
 
 @transport_user.route('/results', methods=['GET', 'POST'])
 def turnresult():
+    if 'identity' not in session:
+        flash('请先登录！','warning')
+        return redirect(url_for('.index'))
     if 'identity' in session and session['identity']=='Unknown':
         flash('请先登录！','warning')
         return redirect(url_for('.index'))
@@ -51,6 +56,9 @@ def turnresult():
 
 @transport_user.route('/msg_input', methods=['GET', 'POST'])
 def turninput():
+    if 'identity' not in session:
+        flash('请先登录！','warning')
+        return redirect(url_for('.index'))
     if 'identity' in session and session['identity']=='Unknown':
         flash('请先登录！','warning')
         return redirect(url_for('.index'))
@@ -68,6 +76,9 @@ def indexregister(number):
 
 @transport_user.route('/register', methods=['GET', 'POST'])
 def msg_input():
+    if 'identity' not in session:
+        flash('请先登录！','warning')
+        return redirect(url_for('.index'))
     if 'identity' in session and session['identity']=='Unknown':
         flash('请先登录！','warning')
         return redirect(url_for('.index'))
@@ -162,7 +173,6 @@ def search():
             Transport.time.like(time+"%") if time is not None else text('')
         ).all()
         if (q_transport):
-            # session['q_transport']=q_transport
             return render_template('results.html', transport=q_transport)
         else:
             flash('数据库中无该条件班次！','warning')
@@ -171,9 +181,12 @@ def search():
 
 @transport_user.route('/searchregist/<number>', methods=['GET', 'POST'])
 def searchregister(number):
-    identity_number = session['identity_number']
+    if 'identity_number' not in session:
+        flash('您还未填写个人信息，无法搜索，请先填写个人信息！', 'warning')
+        print('您还未注册个人信息！')
+        return render_template('msg_input.html')
+    identity_number =session.get('identity_number')
     Isexist = USER.query.filter_by(identity_number=identity_number).all()
-    print(Isexist)
     if (Isexist):
         if (Isexist[0].transport_number == number):
             flash("您已登记该班次",'info')
