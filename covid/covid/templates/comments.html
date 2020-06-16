@@ -13,10 +13,10 @@
     background-color: #f5f5f5;
     border-right: 1px solid #eee;">
 <div class="list-group" style = "text-align: center">
-  <a href="{{ url_for('population_admin.index') }}" class="list-group-item">Home</a>
-  <a href="{{ url_for('population_admin.population') }}" class="list-group-item">Population</a>
-  <a href="{{ url_for('population_admin.information') }}" class="list-group-item">Information</a>
-  <a href="{{ url_for('population_admin.comments') }}" class="list-group-item active">Comments</a>
+  <a href="{{ url_for('population_admin.index') }}" class="list-group-item">主页</a>
+  <a href="{{ url_for('population_admin.population') }}" class="list-group-item">流动更新</a>
+  <a href="{{ url_for('population_admin.information') }}" class="list-group-item">资讯更新</a>
+  <a href="{{ url_for('population_admin.comments') }}" class="list-group-item active">评论监控</a>
 </div>
 </div>
 
@@ -26,12 +26,12 @@
 
   <ul class="nav nav-tabs">
   <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle active" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Select the type</a>
+    <a class="nav-link dropdown-toggle active" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">选择类型</a>
     <div class="dropdown-menu">
-      <a class="dropdown-item" href="{{url_for('population_admin.comt_information_check', itype=0)}}">IndustryRestart</a>
-      <a class="dropdown-item" href="{{url_for('population_admin.comt_information_check', itype=1)}}">Quarantine</a>
-      <a class="dropdown-item" href="{{url_for('population_admin.comt_information_check', itype=2)}}">Transportation</a>
-      <a class="dropdown-item" href="{{url_for('population_admin.comt_information_check', itype=3)}}">MedicalService</a>
+      <a class="dropdown-item" href="{{url_for('population_admin.comt_information_check', itype=0)}}">复工复产</a>
+      <a class="dropdown-item" href="{{url_for('population_admin.comt_information_check', itype=1)}}">社区管控</a>
+      <a class="dropdown-item" href="{{url_for('population_admin.comt_information_check', itype=2)}}">交通出行</a>
+      <a class="dropdown-item" href="{{url_for('population_admin.comt_information_check', itype=3)}}">医疗举措</a>
     </div>
   </li>
   </ul>
@@ -39,10 +39,10 @@
   {%for info in data%}
   <a href="{{url_for('population_admin.comment__check', iid=info.info_ID)}}" class="list-group-item list-group-item-action flex-column align-items-start">
     <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">Info-id：{{info.info_ID}}</h5>
-      <small>Info-time：{{info.info_time}}</small>
+      <h5 class="mb-1">ID：{{info.info_ID}}</h5>
+      <small>发布时间：{{info.info_time}}</small>
     </div>
-    <p class="mb-1">Info-title：{{info.info_title}}</p>
+    <p class="mb-1">标题：{{info.info_title}}</p>
   </a>
   {% endfor %}
   </div>
