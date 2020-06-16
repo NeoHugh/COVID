@@ -1,6 +1,6 @@
 from flask import render_template, url_for,redirect, Blueprint,session,flash,request
-from app import db
-from app.transportation_models import  USER,Transport
+from covid import db
+from covid.transportation_models import  USER,Transport
 from sqlalchemy import text
 
 transport_user = Blueprint('transport_user', __name__)
@@ -28,9 +28,6 @@ def index():
 
 @transport_user.route('/search', methods=['GET', 'POST'])
 def turnsearch():
-    if 'identity' not in session:
-        flash('请先登录！', 'warning')
-        return redirect(url_for('.index'))
     if 'identity' in session and session['identity']=='Unknown':
         flash('请先登录！','warning')
         return redirect(url_for('.index'))
@@ -44,9 +41,6 @@ def turnsearch():
 
 @transport_user.route('/results', methods=['GET', 'POST'])
 def turnresult():
-    if 'identity' not in session:
-        flash('请先登录！', 'warning')
-        return redirect(url_for('.index'))
     if 'identity' in session and session['identity']=='Unknown':
         flash('请先登录！','warning')
         return redirect(url_for('.index'))
@@ -57,9 +51,6 @@ def turnresult():
 
 @transport_user.route('/msg_input', methods=['GET', 'POST'])
 def turninput():
-    if 'identity' not in session:
-        flash('请先登录！', 'warning')
-        return redirect(url_for('.index'))
     if 'identity' in session and session['identity']=='Unknown':
         flash('请先登录！','warning')
         return redirect(url_for('.index'))
@@ -70,12 +61,6 @@ def turninput():
 
 @transport_user.route('/indexregister/<number>', methods=['GET', 'POST'])
 def indexregister(number):
-    if 'identity' not in session:
-        flash('请先登录！', 'warning')
-        return redirect(url_for('.index'))
-    if 'identity' in session and session['identity']=='Unknown':
-        flash('请先登录！','warning')
-        return redirect(url_for('.index'))
     session['transport_number'] = number
     if 'identity_number' in session:
         return redirect(url_for('transport_user.searchregister', number=session['transport_number']))
@@ -83,9 +68,6 @@ def indexregister(number):
 
 @transport_user.route('/register', methods=['GET', 'POST'])
 def msg_input():
-    if 'identity' not in session:
-        flash('请先登录！', 'warning')
-        return redirect(url_for('.index'))
     if 'identity' in session and session['identity']=='Unknown':
         flash('请先登录！','warning')
         return redirect(url_for('.index'))
@@ -96,11 +78,11 @@ def msg_input():
             address = request.form['address']
             phone_number = request.form['phone_number']
             email = request.form['email']
-            session['identity_number'] = identity_number
-            session['address'] = address
-            session['phone_number'] = phone_number
-            session['email'] = email
             q_user = USER.query.filter_by(identity_number=identity_number).first()
+            p_user = USER.query.filter_by(phone_number=phone_number).first()
+            if p_user:
+                flash('该手机号已被登记！', 'danger')
+                return render_template('msg_input.html')
             if (q_user):
                 flash('您已填写信息！','info')
                 print('您已填写信息！')
@@ -112,7 +94,12 @@ def msg_input():
                     db.session.add(new_user)
                     db.session.commit()
                     flash('登记成功！','success')
+                    session.pop('transport_number')
                     print('登记成功！')
+                    session['identity_number'] = identity_number
+                    session['address'] = address
+                    session['phone_number'] = phone_number
+                    session['email'] = email
                     return redirect(url_for('transport_user.index'))
                 except Exception as e:
                     print(e)
@@ -125,15 +112,16 @@ def msg_input():
             address = request.form['address']
             phone_number = request.form['phone_number']
             email = request.form['email']
-            session['identity_number'] = identity_number
-            session['address'] = address
-            session['phone_number'] = phone_number
-            session['email'] = email
             q_user = USER.query.filter_by(identity_number=identity_number).first()
+            p_user = USER.query.filter_by(phone_number=phone_number).first()
+            if p_user:
+                flash('该手机号已被登记！', 'danger')
+                return render_template('msg_input.html')
             if (q_user):
                 if (q_user.transport_number):
                     flash('您已填写信息！','info')
                     return render_template('msg_input.html')
+
             else:
                 try:
                     new_user = USER(name=name, identity_number=identity_number, email=email, address=address,
@@ -141,6 +129,10 @@ def msg_input():
                     db.session.add(new_user)
                     db.session.commit()
                     flash('填写成功！','success')
+                    session['identity_number'] = identity_number
+                    session['address'] = address
+                    session['phone_number'] = phone_number
+                    session['email'] = email
                     return render_template('search.html')
                 except Exception as e:
                     print(e)
@@ -151,12 +143,6 @@ def msg_input():
 
 @transport_user.route('/searchtransport', methods=['GET', 'POST'])
 def search():
-    if 'identity' not in session:
-        flash('请先登录！', 'warning')
-        return redirect(url_for('.index'))
-    if 'identity' in session and session['identity']=='Unknown':
-        flash('请先登录！','warning')
-        return redirect(url_for('.index'))
     if request.method == 'POST':
         type = request.form['type']
         start = request.form['start']
@@ -185,12 +171,6 @@ def search():
 
 @transport_user.route('/searchregist/<number>', methods=['GET', 'POST'])
 def searchregister(number):
-    if 'identity' not in session:
-        flash('请先登录！', 'warning')
-        return redirect(url_for('.index'))
-    if 'identity' in session and session['identity'] == 'Unknown':
-        flash('请先登录！', 'warning')
-        return redirect(url_for('.index'))
     identity_number = session['identity_number']
     Isexist = USER.query.filter_by(identity_number=identity_number).all()
     print(Isexist)
@@ -217,12 +197,6 @@ def searchregister(number):
 
 @transport_user.route('/resultregist/<number>', methods=['GET', 'POST'])
 def resultregister(number):
-    if 'identity' not in session:
-        flash('请先登录！', 'warning')
-        return redirect(url_for('.index'))
-    if 'identity' in session and session['identity']=='Unknown':
-        flash('请先登录！','warning')
-        return redirect(url_for('.index'))
     identity_number = session['identity_number']
     type=session['type']
     start=session['start']
