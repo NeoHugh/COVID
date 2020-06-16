@@ -13,10 +13,10 @@
     background-color: #f5f5f5;
     border-right: 1px solid #eee;">
 <div class="list-group" style = "text-align: center">
-  <a href="{{ url_for('population_admin.index') }}" class="list-group-item">Home</a>
-  <a href="{{ url_for('population_admin.population') }}" class="list-group-item">Population</a>
-  <a href="{{ url_for('population_admin.information') }}" class="list-group-item active">Information</a>
-  <a href="{{ url_for('population_admin.comments') }}" class="list-group-item">Comments</a>
+  <a href="{{ url_for('population_admin.index') }}" class="list-group-item">主页</a>
+  <a href="{{ url_for('population_admin.population') }}" class="list-group-item">流动更新</a>
+  <a href="{{ url_for('population_admin.information') }}" class="list-group-item active">资讯更新</a>
+  <a href="{{ url_for('population_admin.comments') }}" class="list-group-item">评论监控</a>
 </div>
 </div>
 
@@ -28,10 +28,10 @@
   <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle active" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Check&check</a>
       <div class="dropdown-menu">
-        <a class="dropdown-item" href="{{url_for('population_admin.information_check', itype=0)}}">IndustryRestart</a>
-        <a class="dropdown-item" href="{{url_for('population_admin.information_check', itype=1)}}">Quarantine</a>
-        <a class="dropdown-item" href="{{url_for('population_admin.information_check', itype=2)}}">Transportation</a>
-        <a class="dropdown-item" href="{{url_for('population_admin.information_check', itype=3)}}">MedicalService</a>
+        <a class="dropdown-item" href="{{url_for('population_admin.information_check', itype=0)}}">复工复产</a>
+        <a class="dropdown-item" href="{{url_for('population_admin.information_check', itype=1)}}">社区管控</a>
+        <a class="dropdown-item" href="{{url_for('population_admin.information_check', itype=2)}}">交通出行</a>
+        <a class="dropdown-item" href="{{url_for('population_admin.information_check', itype=3)}}">医疗举措</a>
       </div>
   </li>
   </ul>
@@ -40,13 +40,13 @@
     {%for i in data%}
       <div class="panel panel-info">
         <div class="panel-heading">
-            <h3 class="panel-title" name="info_ID">Info-id: {{i.info_ID}}</h3>
-            <h3 class="panel-title">Info-time: {{i.info_time}}</h3>
+            <h3 class="panel-title" name="info_ID">ID: {{i.info_ID}}</h3>
+            <h3 class="panel-title">发布时间: {{i.info_time}}</h3>
         </div>
         <div class="panel-body">
-            Info-title: {{i.info_title}}
+            标题: {{i.info_title}}
             <a  href="{{url_for('population_admin.delInfo', iid=i.info_ID)}}">
-              <button class="btn btn-outline-danger" style="display:block;margin:0 auto">Delete</button>
+              <button class="btn btn-outline-danger" style="display:block;margin:0 auto">删除</button>
             </a>
         </div>
       </div>
