@@ -13,10 +13,10 @@
     background-color: #f5f5f5;
     border-right: 1px solid #eee;">
  <div class="list-group" style = "text-align: center">
-  <a href="{{ url_for('population_admin.index') }}" class="list-group-item">Home</a>
-  <a href="{{ url_for('population_admin.population') }}" class="list-group-item">Population</a>
-  <a href="{{ url_for('population_admin.information') }}" class="list-group-item">Information</a>
-  <a href="{{ url_for('population_admin.comments') }}" class="list-group-item active">Comments</a>
+  <a href="{{ url_for('population_admin.index') }}" class="list-group-item">主页</a>
+  <a href="{{ url_for('population_admin.population') }}" class="list-group-item">流动更新</a>
+  <a href="{{ url_for('population_admin.information') }}" class="list-group-item">资讯更新</a>
+  <a href="{{ url_for('population_admin.comments') }}" class="list-group-item active">评论监控</a>
 </div>
 </div>
 
@@ -26,9 +26,9 @@
     <table class="table table-hover">
         <thead class = "thead-light">
                 <tr>
-                  <th>Username</th>
-                  <th>Comment</th>
-                  <th>Time</th>
+                  <th>用户名</th>
+                  <th>评论</th>
+                  <th>时间</th>
                 </tr>
         </thead>
         <tbody>
@@ -36,7 +36,7 @@
                 <tr>
                   <td>{{i.user_ID}}</td>
                   <td>{{i.comt_text}}</td>
-                  <td>{{i.comt_time}}<a class="badge badge-danger" href="{{url_for('population_admin.delComt', cid=i.comt_ID, sep='|', iid=i.info_ID)}}" style = "float:right">Delete</a></td>
+                  <td>{{i.comt_time}}<a class="badge badge-danger" href="{{url_for('population_admin.delComt', cid=i.comt_ID, sep='|', iid=i.info_ID)}}" style = "float:right">删除</a></td>
                 </tr>
         {% endfor %}
         </tbody>
