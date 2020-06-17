@@ -16,7 +16,7 @@ def before_login():
 
 @login.route("/home")
 def home():
-    return render_template('yourwebsite.html')
+    return render_template('framework.html')
 
 
 @login.route("/", methods=['GET', 'POST'])
@@ -32,6 +32,7 @@ def a():
             session['email'] = form.email.data
             session['name']=user.name
             flash('登录成功!','success')
+            return redirect(url_for('login.info'))
             # db.session['email'] = form.email.data
         else:
             flash('登录失败！请重新输入账号密码','warning')
