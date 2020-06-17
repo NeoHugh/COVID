@@ -21,7 +21,9 @@ var seriesText2 = {
 var seriesText3 = {
     diagnosed: "新增确诊"
 };
-
+var otherPro = {proName:'非鄂地区',data_daylist:[]};
+var hubei_daylist = [];
+var optionContrast;
 // 向后端请求疫情数据信息
 $(document).ready(function (){
 	$.ajax({
@@ -29,6 +31,7 @@ $(document).ready(function (){
 		async: true,
 		success: function(dataRaw){
 			// 解析数据
+			dataRaw = JSON.parse(dataRaw);
 			data = dataRaw.provinceset;
 			// 日期列表
 			dates = dataRaw.dates;
@@ -47,7 +50,8 @@ $(document).ready(function (){
 							date: date,
 							diagnosed: 0,
 							cured: 0,
-							dead: 0
+							dead: 0,
+							imported:0
 						});
 						continue;
 					}
@@ -61,7 +65,8 @@ $(document).ready(function (){
 							date: dateData.date,
 							diagnosed: dateData.diagnosed,
 							cured: dateData.cured,
-							dead: dateData.dead
+							dead: dateData.dead,
+							imported: dateData.imported
 						});
 					} else {
 						toModifiedData = nationwideData[dataPointer];
@@ -143,6 +148,26 @@ $(document).ready(function (){
 				}
 			};
 
+			//计算非鄂地区的统计数据
+			for (const eachday of nationwideData) {
+				otherPro.data_daylist.push(eachday.imported);
+			}
+			// for (const eachday of data) {
+			// 	if(data[eachday].province=='湖北'){
+			// 		for( const day_import in data[eachday].data){
+			// 			otherPro.data_daylist[day_import]-=eachday.data[day_import];
+			// 		}
+			// 	}
+			// }
+			for(var index=0;index<data.length;index++){
+				if(data[index].province=='湖北'){
+					for(var index2=0;index<data[index].data.length&&index2<<data.length;index2++ ){
+						otherPro.data_daylist[index2]-=data[index].data[index2].imported;
+					}
+				}
+			}
+
+
 
 			// 使用刚指定的配置项和数据显示图表。
 			trendChart1.setOption(optionTC1);
@@ -164,6 +189,7 @@ $(document).ready(function (){
 							import: data[index].data[everyday].imported
 						}
 					)
+					// sumday+=data[index].data[everyday].imported;
 				}
 				provinceGather.push(
 					{
@@ -173,18 +199,21 @@ $(document).ready(function (){
 				)
 			}
 
-			var tempList = [];
+			
 			for (const index in provinceGather) {
 				if (provinceGather[index].proName == '湖北') {
 					for (const index_date in provinceGather[index].dayListing) {
-						tempList.push(provinceGather[index].dayListing[index_date].import);
+						hubei_daylist.push(provinceGather[index].dayListing[index_date].import);
 						contrastXaxis.push(provinceGather[index].dayListing[index_date].date);
 					}
 					contrastSeries.push({
 						name: '湖北',
 						type: 'line',
-						data: tempList}
+						data: hubei_daylist}
 					);
+				}
+				else{
+					
 				}
 			}
 
@@ -225,7 +254,7 @@ function calcTargetData() {
     var targetData = []; // 绘制用数据
     var firstProvince = 1; // 判断是否为第一个录入的省份
     for (const province of data) {
-        if (province.province == targetProvince || targetProvince == "全国" || (targetProvince == "非湖北" && province.province != "湖北")) {
+        if (province.province == targetProvince || targetProvince == "全国" || (targetProvince == "非鄂" && province.province != "湖北")) {
             dataPointer = 0;	// 操作和第一张图的一样
             for (const date of dates) {
                 dateData = province.data[dataPointer];
@@ -362,7 +391,7 @@ function calcTargetData() {
             source: targetData
         }
     };
-    trendChart3.setOption(optionTC3);
+	trendChart3.setOption(optionTC3);
 }
 
 // 当画面大小变化时对应改变各图表的尺寸。
@@ -387,7 +416,6 @@ function resizeCharts() {
         "width": $("#contrastWrapper").width()
     })
     contrast.resize();
-	console.log($("#mapdiv").width(), $(window).width())
 	if (window.matchMedia('(min-width: 992px)').matches) {
 		$("#Epi_map").css({
 			"height": 3 * $("#contrastWrapper").height(),
@@ -404,3 +432,25 @@ function resizeCharts() {
 window.onresize = function () {
     resizeCharts();
 }
+
+//点击了显示湖北/非鄂地区的按钮
+$("#hubei_other").click(function () {
+    for (updatedProvince of choice)
+    {
+        delete updatedProvince.itemStyle;
+    }
+    if (targetProvince == "非鄂") {
+		targetProvince = "全国";
+		$("#Region_Name").html("当前地区: "+'全国');
+	} else {
+		targetProvince = "非鄂"
+		$("#Region_Name").html("当前地区: "+'除湖北省外地区');
+	}
+	ec_center.setOption({
+        series: [{
+            data: choice
+        }]
+    })
+	calcTargetData(); // 更新其他图
+	
+})
