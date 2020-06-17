@@ -108,9 +108,6 @@ def msg_input():
                     session.pop('transport_number')
                     print('登记成功！')
                     session['identity_number'] = identity_number
-                    session['address'] = address
-                    session['phone_number'] = phone_number
-                    session['email'] = email
                     return redirect(url_for('transport_user.index'))
                 except Exception as e:
                     print(e)
@@ -141,9 +138,6 @@ def msg_input():
                     db.session.commit()
                     flash('填写成功！','success')
                     session['identity_number'] = identity_number
-                    session['address'] = address
-                    session['phone_number'] = phone_number
-                    session['email'] = email
                     return render_template('search.html')
                 except Exception as e:
                     print(e)
