@@ -1,3 +1,4 @@
+# encoding:utf-8
 import importlib
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
