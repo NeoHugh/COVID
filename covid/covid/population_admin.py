@@ -123,6 +123,11 @@ def addPopInfo():
         return render_template('notice.html', notice='更新失败'\
             , URL=URL)
     #要记得补全一些未填充的：省份
+    result = Popflow.query.filter(Popflow.people_province == session.get('province'))
+    if result:
+        for i in result:
+            db.session.delete(i)
+        db.session.commit()
     record = Popflow(people_province=session.get('province'), people_inflow = int(infl), people_outflow = int(oufl))
     db.session.add(record)
     db.session.commit()
