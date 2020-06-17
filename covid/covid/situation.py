@@ -130,8 +130,8 @@ def index():
 @situation_bp.route('/epidata/',methods=['GET']) # 这里是GET啊！GET！
 #这里原来是uplord，但是在用户的视角应当是获取数据，因此修改路由。
 def upload():
-    return jsonify({'provinceset': provinceset,
-                    'dates': datadateset})
+    return json.dumps({'provinceset': provinceset,
+                       'dates': datadateset})
 
 @situation_bp.route('/getdatedata/', methods=['GET'])
 def getdatedata():
