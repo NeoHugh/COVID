@@ -5,15 +5,15 @@ from wtforms.validators import DataRequired, Email, Length, EqualTo, Regexp
 
 
 class LoginForm(Form):
-    email = StringField('Email', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    remember = BooleanField('Remember Me')
-    submit = SubmitField('Login')
+    email = StringField('邮箱', validators=[DataRequired()])
+    password = PasswordField('密码', validators=[DataRequired()])
+    remember = BooleanField('记住我')
+    submit = SubmitField('登陆')
 
 
 class pswForm(Form):
 
-    email = StringField('Email', validators=[DataRequired()])
+    email = StringField('邮箱', validators=[DataRequired()])
     idcard = StringField(
         label='身份证号',
         validators=[
@@ -32,10 +32,10 @@ class pswForm(Form):
 
 
 class AdminLoginForm(Form):
-    name = StringField('Name', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    name = StringField('姓名', validators=[DataRequired()])
+    password = PasswordField('密码', validators=[DataRequired()])
     # remember = BooleanField('Remember Me')
-    submit = SubmitField('LogAdmin')
+    submit = SubmitField('登陆')
 
 
 
