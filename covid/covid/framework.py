@@ -3,6 +3,7 @@ from covid import db
 from covid.forms import LoginForm, RegistrationForm, AdminForm, AdminLoginForm, pswForm,InfoForm
 from covid.models import Users, Admin
 
+
 login = Blueprint('login', __name__)
 
 @login.before_request
@@ -112,6 +113,12 @@ def forget():
             flash(f'用户不存在！','warning')
     return render_template('forget.html', title='forget psw', form=form)
 
+@login.route("/logout", methods=['GET', 'POST'])
+def logout():
+    # session.pop('name',None)
+    # logout_user()
+    session.clear()
+    return redirect(url_for('.a'))
 
 @login.route("/adminLog", methods=['GET', 'POST'])
 def adminLog():
