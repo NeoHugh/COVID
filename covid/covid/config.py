@@ -2,7 +2,7 @@
 import os
 from datetime import timedelta
 class Config:
-    SECRET_KEY=os.urandom(24) #每次重启服务器的时候清除session
+    SECRET_KEY='\x9f`\x01\xa7\x17\xc4+\xf4\x16j\xb8w\xe9\xf8\xfe\xd6\x13\x11+\x10KtzR' #每次重启服务器的时候清除session
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     SQLALCHEMY_DATABASE_URI='mysql://root:root@120.55.44.111/COVID' #数据库配置 格式：mysql://账号:密码@127.0.0.1/COVID
     PERMANENT_SESSION_LIFETIME=timedelta(days=1) #session有效期为1天
