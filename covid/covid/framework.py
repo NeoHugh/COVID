@@ -54,6 +54,29 @@ def info():
         flash('请先登录！','warning')
         return redirect(url_for('.a'))
     email=session['email']
+    if form.validate_on_submit():
+        # '''email = Users.query.filter_by(email=form.email.data).all()
+        idc = Users.query.filter_by(idcard=form.idcard.data).all()
+        newuser = Users.query.filter_by(username=form.username.data).all()
+        # """
+        # if email:
+        #     flash('该邮箱已被注册过！')
+        # """
+        if idc and idc[0].email!=email:
+            flash('身份证号重复！','danger')
+        else :
+            if newuser and newuser[0].email!=email:
+                flash('用户名重复！','danger')
+            else:
+                Users.query.filter_by(email=email).update({'name':form.name.data})
+                Users.query.filter_by(email=email).update({'username':form.username.data})
+                Users.query.filter_by(email=email).update( {'idcard':form.idcard.data})
+                Users.query.filter_by(email=email).update({'province':form.province.data})
+                Users.query.filter_by(email=email).update({'phone':form.phone.data})
+                Users.query.filter_by(email=email).update({'address':form.address.data})
+                db.session.commit()
+                flash(f'个人信息更新成功','success')
+        return redirect(url_for('.info'))
     t_user=Users.query.filter_by(email=email).first()
     form.username.data=t_user.username
     form.name.data=t_user.name
@@ -61,12 +84,7 @@ def info():
     form.phone.data=t_user.phone
     form.province.data=t_user.province
     form.address.data=t_user.address
-    if form.validate_on_submit():
-        Users.query.filter_by(email=email).update({'name':form.name.data},{'username':form.username.data},
-                                                           {'idcard':form.idcard.data},{'province':form.province.data},
-                                                           {'phone':form.phone.data},{'address':form.address.data})
-        flash(f'个人信息更新成功','success')
-        return redirect(url_for('.home'))
+
     return render_template('info.html', title='Info', form=form)
 
 @login.route("/register", methods=['GET', 'POST'])
@@ -77,21 +95,24 @@ def register():
         username = Users.query.filter_by(username=form.username.data).all()
         idc = Users.query.filter_by(idcard=form.idcard.data).all()
         if email:
-            flash('该邮箱已被注册过！')
-        if username:
-            flash('用户名重复！')
-        if idc:
-            flash('身份证号重复！')
-        else:
-            user = Users(username=form.username.data, pwd=form.password.data, email=form.email.data,
-                         address=form.address.data, name=form.name.data, province=form.province.data,
-                         idcard=form.idcard.data, phone=form.phone.data)
-            db.session.add(user)
-            db.session.commit()
-            print(1)
-            flash(f'Account created for {form.username.data}!', 'success')
-            session['name']=user.username
-            return redirect(url_for('login.a'))
+            flash('该邮箱已被注册过！','danger')
+        else :
+            if username:
+                flash('用户名重复！','danger')
+            else :
+                if idc:
+                    flash('身份证号重复！','danger')
+                else:
+                    user = Users(username=form.username.data, pwd=form.password.data, email=form.email.data,
+                                address=form.address.data, name=form.name.data, province=form.province.data,
+                                idcard=form.idcard.data, phone=form.phone.data)
+                    print(user)
+                    db.session.add(user)
+                    db.session.commit()
+                    print(1)
+                    flash(f'账号{form.username.data}创建成功!', 'success')
+                    session['name']=user.username
+                    return redirect(url_for('login.a'))
     return render_template('register.html', title='Register', form=form)
 
 
@@ -106,7 +127,7 @@ def forget():
             if user_ok:
                 Users.query.filter_by(idcard=form.idcard.data).update({'pwd': form.password.data})
                 flash(f'密码更新成功!', 'success')
-                return redirect(url_for('.a'))
+                return redirect(url_for('.info'))
             else:
                 flash(f'身份证号验证错误！','warning')
         else:
