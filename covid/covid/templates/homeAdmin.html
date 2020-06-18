@@ -4,12 +4,12 @@
 {% block content %}
 
 <div class="col-4 offset-md-3">
-<h1>Home Admin</h1>
+<h1>管理员主页</h1>
 
 
    <br/>
 <div>
- <h5>Admin List</h5>
+ <h5>管理员列表</h5>
 
 <hr/>
 {% for post in admin %}
@@ -17,7 +17,7 @@
     {% endfor %}
 <hr/>
 <small class="text-muted">新增管理员 ：
-    <a href="{{ url_for('login.addAdmin')}}"> Add Admin</a>
+    <a href="{{ url_for('login.addAdmin')}}"> 添加管理员</a>
 </small>
 </div>
 </div>
