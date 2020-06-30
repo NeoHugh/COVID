@@ -134,14 +134,14 @@ def send(orderid):
     order.OrderState = 2
     order.DeliveryTime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
     db.session.commit()
-    return redirect(url_for('admin.sent_deal'))
+    return redirect(url_for('goods_admin.sent_deal'))
 
 @admin.route("/processComplaint/<complaintid>") #  处理投诉
 def processComplaint(complaintid):
     complaint = Complaint.query.filter(Complaint.id==complaintid).first()
     complaint.ComplaintState = 1
     db.session.commit()
-    return redirect(url_for('admin.complain_deal')) 
+    return redirect(url_for('goods_admin.complain_deal')) 
 
 @admin.route("/download/<goodsid>")
 def download(goodsid):

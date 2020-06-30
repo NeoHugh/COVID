@@ -5,6 +5,8 @@ from flask_bootstrap import Bootstrap
 from covid.config import Config
 import sys
 from flask_mail import Mail
+import flask_excel as excel
+#from flask_wtf import CSRFProtect
 
 
 db = SQLAlchemy()
@@ -19,6 +21,8 @@ def create_app(config_class=Config):
     db.init_app(app)
     mail.init_app(app)
     bootstrap.init_app(app)
+    excel.init_excel(app)
+#    CSRFProtect(app)
 
     from covid.transport_user import transport_user
     from covid.transport_admin import transport_admin
