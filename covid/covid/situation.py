@@ -197,7 +197,7 @@ def _connsql():
     # 所有连接sql的操作都封装这里
     db = pymysql.connect(host="120.55.44.111",
                          user="root",
-                         password="root",
+                         password="****",
                          db="situation",
                          port=3306,
                          charset='utf8')
